@@ -18,9 +18,6 @@ const bookingSchema = new Schema(
             type: Date,
             required: true
         },
-        endingTimeOfSlot: {
-            type: String
-        },
         calcellationDeadline: { // in min
             type: Number,
             type: 120
