@@ -1,6 +1,7 @@
 import express from "express"
 import cors from 'cors'
-import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser"
+import path from "path"
 
 const app = express();
 
@@ -18,18 +19,23 @@ app.use(express.urlencoded({
 
 app.use(cookieParser());
 
+// To implement ejs
+app.set("view engine","ejs");
+
 import path from "path"
 // Routes
 const __filename = new URL('', import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'public')));
-app.set("view engine","ejs")
-
-
-// app.set(path.join(__dirname,'views'))
+app.set(path.join(__dirname,'../client/views'))
 app.get ("/",(req,res)=>{
     res.render("index")
 })
 
+// API Routes
 
-export { app }
+import userRouter from "./routes/user.routes.js"
+
+app.use('/api/user', userRouter)
+
+
+export { app };
