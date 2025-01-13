@@ -1,0 +1,134 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    background:#0D1428;
+}
+.nav{
+    
+    position:relative;
+    top: 15px;
+    width: 85%;
+    padding: 5px;
+    left: 10%;
+    border-radius: 20px;
+    background: linear-gradient(to bottom, #0D1428, #202746); /* Mirror-like background gradient */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Adding shadow for the reflective effect */
+      position: relative;
+      z-index: 1;
+    height: 55px;
+
+}
+.list{
+    display: flex;
+    justify-content: space-between; /* Space between the two groups */
+    align-items: center;
+    padding: 8px;
+}
+
+.left-group, .right-group {
+      display: flex; /* Use flexbox for alignment within the groups */
+      gap: 10px; /* Add space between items in the groups */
+    }
+
+.items {
+      padding: 10px 20px;
+      color: white;
+      text-align: center;
+    }
+a{
+    text-decoration: none;
+    color: #bad7f5;
+    display: inline-block;
+    position: relative;
+}
+.items a::after{
+    text-decoration: none;
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: white;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+
+}
+.items a:hover::after {
+    text-decoration: none;
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+.items{
+    font-size: 18px;
+    display: flex;
+}
+.box{
+    position: relative;
+    background-color: #bad7f5;
+    color: #0D1428;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    width: 62px;
+}
+.box:hover {
+top: -0.5px;
+  width: 60px; /* Reduce width */
+  height: 18px; /* Reduce height */
+}
+.rang{
+    color: black;
+}
+
+.center {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+</style>
+
+<div class="nav">
+    <div class="list">
+        <div class="items">
+            <a href="#">Home</a>
+
+        </div>
+        <div class="items">
+            <a href="#">Dashboard</a>
+
+        </div>
+        <div class="items">
+            <a href="#">Facilities</a>
+
+        </div>
+
+        <div class="center">
+        <div class="items">
+            <a href="#">Cancellation</a>
+
+        </div>
+        <div class="items">
+            <a href="#">Rules and FAQs</a>
+
+        </div></div>
+
+        <% if (true) { %>
+            <div class="items">
+                <a href="#"s>Login</a>
+    
+            </div>
+            <div class="items box">
+                <a href="#" class="rang">Sign Up</a>
+    
+            </div>
+          <% } else { %>
+            
+          <% } %>
+
+    </div>
+</div>
