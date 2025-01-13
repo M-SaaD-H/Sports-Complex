@@ -22,7 +22,7 @@ const bookingSchema = new Schema(
             type: Number,
             type: 120
         }
-    }
+    }, { timestamps: true }
 )
 
 export const Booking = mongoose.model("Booking", bookingSchema)
