@@ -16,7 +16,6 @@ body{
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Adding shadow for the reflective effect */
       position: relative;
       z-index: 1;
-    height: 55px;
 
 }
 .list{
@@ -73,12 +72,9 @@ a{
     padding-right: 25px;
     border-radius: 15px;
     transition: all 0.3s ease;
-    width: 62px;
 }
 .box:hover {
-top: -0.5px;
-  width: 60px; /* Reduce width */
-  height: 18px; /* Reduce height */
+box-shadow: 0 0 30px rgb(186 ,215, 245,0.2);/* Reduce height */
 }
 .rang{
     color: black;
@@ -119,11 +115,11 @@ top: -0.5px;
 
         <% if (true) { %>
             <div class="items">
-                <a href="#"s>Login</a>
+                <div>Log In</div>
     
             </div>
             <div class="items box">
-                <a href="#" class="rang">Sign Up</a>
+                <div  class="rang">Sign Up</div>
     
             </div>
           <% } else { %>
