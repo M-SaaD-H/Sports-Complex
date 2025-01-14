@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+
+body {
+    background: #E3E6E6;
+}
+
+nav {
+    padding: 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.logo {
+    width: 4vw;
+    height: 4vw;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.nav {
+    padding: 0.6vw;
+    width: 85%;
+    border-radius: 10px;
+    background: rgba( 255, 255, 255, 0.15 );
+    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.2 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+}
+
+.list {
+    display: flex;
+    justify-content: space-between; /* Space between the two groups */
+    align-items: center;
+}
+
+.left-group, .right-group {
+    display: flex; /* Use flexbox for alignment within the groups */
+    gap: 10px; /* Add space between items in the groups */
+}
+
+.items {
+    padding: 0.5vw 2vw;
+    color: white;
+    text-align: center;
+}
+
+.login-btn, .signup-btn, .items * {
+    font-size: 1.1vw;
+    text-wrap: nowrap;
+    text-wrap: nowrap;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+}
+
+.items a::after {
+    text-decoration: none;
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    padding: 1px;
+    bottom: -2px;
+    border-radius: 10px;
+    left: 0;
+    background-color: black;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.items a:hover::after {
+    text-decoration: none;
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.items {
+    font-size: 18px;
+    display: flex;
+}
+
+.center {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.login-btn {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.4vw 1.4vw;
+    cursor: pointer;
+}
+
+.signup-btn {
+    cursor: pointer;
+    background-color:  black;
+    color: white;
+    padding: 0.5vw 1vw;
+    margin: 0 1vw;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+/* Footer */
+
+.footerbody * {
+    color: white;
+}
+
+.footerbody {
+    display:flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color:black;
+    padding: 20px;
+    flex-wrap: nowrap;
+    margin-top: 2vw;
+}
+
+.footerbody a {
+    text-decoration: none;
+    transition: color 0.1s ease-in-out;
+}
+
+.footerbody a:hover {
+    color: rgb(190, 190, 190);
+}
+
+.footerbody li  {
+    margin: 1vw;
+    list-style: none;
+}
+
+.contactdetail img  {
+    padding-top: 8%;
+}
+
+.bold {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.icon {
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 3vw;
+    width: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.icon:hover {
+    background-color: rgba( 255, 255, 255, 0.15 );
+}
+
+.social-icons {
+    font-size: 1.5vw;
+    /* width: 10vw; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5vw;
+}

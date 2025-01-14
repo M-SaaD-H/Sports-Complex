@@ -25,7 +25,9 @@ app.set("view engine","ejs");
 // Routes
 const __filename = new URL('', import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
-app.set(path.join(__dirname,'../client/views'))
+
+app.use("/views", express.static("views"));
+
 app.get ("/",(req,res)=>{
     res.render("index")
 })

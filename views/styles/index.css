@@ -1,0 +1,36 @@
+.hero {
+    margin: 6.5vw 1vw 5vw 1vw;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.main_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tit {
+    font-family: 'Bebas Neue', serif;
+    display: flex;
+    justify-content: center;
+    font-size: 6vw;
+    font-weight: 600;
+}
+
+.welcome {
+    margin: 2vw auto;
+    position: relative;
+    width: 85%;
+    background-color: #f7f7f7;
+    padding: 2vw;
+    border-radius: 10px;
+}
+
+.word {
+    display: flex;
+    justify-content: center;
+    font-size: 3vw;
+    font-weight: 600;
+    margin-bottom: 1vw;
+}
