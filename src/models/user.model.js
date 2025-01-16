@@ -27,6 +27,10 @@ const userSchema = new Schema(
             default: 'student',
             required: true
         },
+        gender: {
+            type: String,
+            required: true
+        },
         refreshToken: {
             type: String,
             select: false

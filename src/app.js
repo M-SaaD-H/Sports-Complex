@@ -35,8 +35,10 @@ app.get ("/",(req,res)=>{
 // API Routes
 
 import userRouter from "./routes/user.routes.js"
+import bookingRouter from "./routes/booking.routes.js"
 
-app.use('/api/user', userRouter)
+app.use('/api/user', userRouter);
+app.use('/api/booking', bookingRouter);
 
 
 export { app };

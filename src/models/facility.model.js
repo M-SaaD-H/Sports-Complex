@@ -7,35 +7,22 @@ const facilitySchema = new Schema(
             required: true,
             trim: true
         },
-        quantity: {
-            type: Number,
-            required: true
-        },
-        type: {
-            type: String,
-            enum: ['indoor', 'outdoor'],
-            required: true
-        },
-        unavailableSlots: [
+        // quantity: {
+        //     type: Number,
+        //     required: true
+        // },
+        availableSlots: [
             {
                 type: String,
+                required: true,
                 trim: true
             }
-        ]
+        ],
+        isAvailable: {
+            type: Boolean,
+            default: true
+        }
     }
 )
 
-const slotDurationForIndoorInMin = 30;
-
-const slotDurationForOutdoorInMin = 60;
-
-const slotDurationForPracticeInMin = 180;
-
-const Facility = mongoose.model("Facility", facilitySchema);
-
-export {
-    slotDurationForIndoorInMin,
-    slotDurationForOutdoorInMin,
-    slotDurationForPracticeInMin,
-    Facility
-}
+export const Facility = mongoose.model("Facility", facilitySchema);

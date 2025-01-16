@@ -10,17 +10,13 @@ const bookingSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Facility"
         },
-        startingTimeOfSlot: {
-            type: Date,
+        slot: {
+            type: String,
             required: true
         },
-        endingTimeOfSlot: {
-            type: Date,
-            required: true
-        },
-        calcellationDeadline: { // in min
+        cancellationDeadline: { // in min
             type: Number,
-            type: 120
+            default: 120
         }
     }, { timestamps: true }
 )
