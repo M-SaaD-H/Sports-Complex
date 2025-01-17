@@ -31,7 +31,7 @@ const bookFacility = asyncHandler( async(req, res) => {
         throw new ApiError(404, "Facility not found");
     }
 
-    const existingBooking = await Booking.findOne({ slot });
+    const existingBooking = await Booking.findOne({ facility ,slot });
 
     if(existingBooking) {
         throw new ApiError(400, "This facility has been already booked for this slot");
@@ -144,7 +144,7 @@ const cancelBooking = asyncHandler( async (req, res) => {
     return res
     .status(200)
     .json(
-        new ApiResponse(200, "Booking cancelled successfully")
+        new ApiResponse(200, {}, "Booking cancelled successfully")
     )
 })
 

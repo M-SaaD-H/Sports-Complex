@@ -172,9 +172,30 @@ const logoutUser = asyncHandler( async (req, res) => {
     )
 })
 
+const getAllBookedFacilities = asyncHandler( async (req, res) => {
+    const userID = req.user?._id;
+
+    if(!userID) {
+        throw new ApiError(404, "Unauthorized request");
+    }
+
+    const user = await User.findById(userID);
+
+    if(!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, user.bookings, "All booked facilities fetched successfully")
+    )
+})
+
 export {
     registerUser,
     // verifyOTPAndCreateUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    getAllBookedFacilities
 }
