@@ -3,6 +3,7 @@ import { ApiError } from "../utils/apiError.js"
 import { ApiResponse } from "../utils/apiResponse.js"
 import { User } from "../models/user.model.js"
 import { OTPVerification } from "../models/otpVerification.model.js";
+import { sendOTPEmail } from "../utils/nodemailer.js";
 
 const cookieOptions = {
     httpOnly: true,
@@ -25,27 +26,31 @@ const generateAccessAndRefreshTokens = async (userID) => {
 
         return { accessToken, refreshToken }
     } catch (error) {
-        throw new ApiError(500, "Erorr while generating access and refresh tokens");
+        throw new ApiError(500, "Error while generating access and refresh tokens");
     }
 }
 
-// const generateOTP = async (email) => {
-//     const OTP = Math.floor(100000 + Math.random() * 900000);
+const generateOTP = async (email) => {
+    const existingOTPRequest = await OTPVerification.findOne({ email });
 
-//     await OTPVerification.create({
-//         email,
-//         OTP,
-//         expiresAt: Date.now() + 5 * 60 * 1000 // OTP expires in 5 minutes
-//     });
+    if(existingOTPRequest) await existingOTPRequest.deleteOne();
 
-//     return OTP;
-// }
+    const OTP = Math.floor(100000 + Math.random() * 900000);
+
+    await OTPVerification.create({
+        email,
+        OTP,
+        expiresAt: Date.now() + 5 * 60 * 1000 // OTP expires in 5 minutes
+    });
+
+    return OTP;
+}
 
 const registerUser = asyncHandler( async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, gender, role } = req.body;
 
     if(
-        [name, email, password, role].some((field) => field.trim() === "")
+        [name, email, password, gender, role].some((field) => field.trim() === "")
     ) {
         throw new ApiError(404, "All fields are required");
     }
@@ -60,22 +65,64 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(4001, "Email address already registered");
     }
 
-    // Now create the User
+    // Now send OTP via email
+
+    const OTP = await generateOTP(email);
+
+    sendOTPEmail(OTP, email);
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, {}, "OTP sent successfully")
+    )
+});
+
+const verifyOTPAndCreateUser = asyncHandler( async (req, res) => {
+    const { name, email, password, role, gender, OTP } = req.body;
+    
+    if(
+        [name, email, password, gender, role].some((field) => field.trim() === "")
+    ) {
+        throw new ApiError(404, "All fields are required");
+    }
+    
+    if(!email.includes('@iitjammu.ac.in')) {
+        throw new ApiError(400, "Email is invalid");
+    }
+    
+    const storedOTPVerificationInstance = await OTPVerification.findOne({ email });
+    
+    if(!storedOTPVerificationInstance) {
+        throw new ApiError(404, "OTP has not been requested or expired");
+    }
+
+    if(storedOTPVerificationInstance.expiresAt < Date.now()) {
+        throw new ApiError(400, "OTP has been expired")
+    }
+    
+    if(!await storedOTPVerificationInstance.isOTPValid(OTP)) {
+        throw new ApiError(400, "Invalid OTP");
+    }
+    
+    await storedOTPVerificationInstance.deleteOne();
+    
+    // Now create User
 
     const user = await User.create({
         name,
         email,
         password,
+        gender,
         role
-    })
+    });
 
     if(!user) {
-        throw new ApiError(500, "Error occured while registering the User")
+        throw new ApiError(500, "Error while creating user");
     }
 
-    
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
-    
+
     return res
     .status(200)
     .cookie("accessToken", accessToken, cookieOptions)
@@ -85,41 +132,13 @@ const registerUser = asyncHandler( async (req, res) => {
             200,
             {
                 user,
-                accessToken, 
+                accessToken,
                 refreshToken
             },
-            "User registered successfully"
+            "User Registered successfully"
         )
     )
 });
-
-// const verifyOTPAndCreateUser = asyncHandler( async (req, res) => {
-//     const { name, email, password, role, OTP } = req.body;
-    
-//     if(
-//         [name, email, password, role].some((field) => field.trim() === "")
-//     ) {
-//         throw new ApiError(404, "All fields are required");
-//     }
-    
-//     if(!email.includes('@')) {
-//         throw new ApiError(400, "Email is invalid");
-//     }
-    
-//     // const storedOTPVerificationInstance = await OTPVerification.findOne({email})
-    
-//     // if(!storedOTPVerificationInstance) {
-//     //     throw new ApiError(404, "OTP has not been requested or already expired");
-//     // }
-    
-//     // if(!await storedOTPVerificationInstance.isOTPValid(OTP)) {
-//     //     throw new ApiError(400, "Invalid OTP");
-//     // }
-    
-//     // storedOTPVerificationInstance.deleteOne();
-    
-    
-// });
 
 const loginUser = asyncHandler( async (req, res) => {
     const { email, password } = req.body;
@@ -194,7 +213,7 @@ const getAllBookedFacilities = asyncHandler( async (req, res) => {
 
 export {
     registerUser,
-    // verifyOTPAndCreateUser,
+    verifyOTPAndCreateUser,
     loginUser,
     logoutUser,
     getAllBookedFacilities

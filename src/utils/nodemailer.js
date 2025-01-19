@@ -41,3 +41,28 @@ async function sendEmail(subject, content, email) {
         console.log("Error while sending email E:", error);
     }
 }
+
+
+function sendOTPEmail(OTP, email) {
+    const subject = "Your OTP for Login";
+
+    const content = `
+    <html>
+    <body>
+        <p>Your OTP for login is <strong>${OTP}</strong></p>
+        <p>It is valid for 5 minutes</p>
+        <p>If you didn't request this, please ignore this email.</p>
+        <br>
+        <br>
+        <p>Best Regards,</p>
+        <p>Sports Council - IIT Jammu</p>
+    </body>
+    </html>
+    `
+
+    sendEmail(subject, content, email);
+}
+
+export {
+    sendOTPEmail
+}

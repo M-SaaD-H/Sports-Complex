@@ -20,7 +20,7 @@ const otpVerificationSchema = new Schema(
 );
 
 otpVerificationSchema.pre("save", async function(next) {
-    if(this.isModified(this.OTP)) {
+    if(this.isModified("OTP")) {
         this.OTP = await bcrypt.hash(this.OTP, 10);
     }
 
