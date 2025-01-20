@@ -3,7 +3,7 @@ import { ApiError } from "../utils/apiError.js"
 import { ApiResponse } from "../utils/apiResponse.js"
 import { User } from "../models/user.model.js"
 import { OTPVerification } from "../models/otpVerification.model.js";
-import { sendOTPEmail } from "../utils/nodemailer.js";
+import { sendOTPEmail, sendResetOTPEmail } from "../utils/nodemailer.js";
 
 const cookieOptions = {
     httpOnly: true,
@@ -140,6 +140,28 @@ const verifyOTPAndCreateUser = asyncHandler( async (req, res) => {
     )
 });
 
+const resendOTP = asyncHandler( async (req, res) => {
+    const { email } = req.body;
+
+    if(!email) {
+        throw new ApiError(400, "Email is required");
+    }
+
+    const existingRequest = await OTPVerification.findOne({ usersEmail: email });
+
+    if(existingRequest) existingRequest.deleteOne();
+
+    const OTP = await generateOTP(email);
+
+    sendOTPEmail(OTP, email);
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, {}, "OTP resent successfully")
+    )
+});
+
 const loginUser = asyncHandler( async (req, res) => {
     const { email, password } = req.body;
 
@@ -191,6 +213,114 @@ const logoutUser = asyncHandler( async (req, res) => {
     )
 })
 
+const getCurrentUser = asyncHandler( async(req, res) => {
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, req.user, "Current user fetched successfully")
+    )
+});
+
+const changeCurrentPassword = asyncHandler( async (req, res) => {
+    const { oldPassword, confirmOldPassword, newPassword } = req.body;
+    const userID = req.user._id;
+
+    if(!userID) {
+        throw new ApiError("Unauthorized request");
+    }
+
+    if(oldPassword !== confirmOldPassword) {
+        throw new ApiError(400, "Old Passwod and confirm old password does not match");
+    }
+
+    const user = await User.findById(userID);
+
+    if(!user) {
+        throw new ApiError(404, "User does not exists");
+    }
+
+    if(!await user.isPasswordCorrect(oldPassword)) {
+        throw new ApiError(400, "Password is incorrect");
+    }
+
+    user.password = newPassword;
+    await user.save({ validateBeforeSave: false });
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, {}, "Password Changed successfully")
+    )
+});
+
+const sendOTPToResetPassword = asyncHandler( async (req, res) => {
+    const userID = req.user._id;
+
+    if(!userID) {
+        throw new ApiError(401, "Unauthorized request");
+    }
+
+    const user = await User.findById(userID);
+
+    if(!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const OTP = await generateOTP(user.email);
+
+    sendResetOTPEmail(OTP, user.email);
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, {}, "OTP is sent to your registered email")
+    )
+});
+
+const verifyOTPAndResetPassword = asyncHandler( async (req, res) => {
+    const { newPassword, OTP } = req.body;
+    const userID = req.user.id;
+
+    if(!newPassword || newPassword.length <= 0) {
+        throw new ApiError(404, "New Password is required to reset the password");
+    }
+
+    if(!userID) {
+        throw new ApiError(400, "Unauthorized request");
+    }
+
+    const user = await User.findById(userID);
+
+    if(!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const storedOTPVerificationInstance = await OTPVerification.findOne({ email: user.email });
+
+    if(!storedOTPVerificationInstance) {
+        throw new ApiError(404, "The OTP has either already been verified or has expired");
+    }
+
+    if(storedOTPVerificationInstance.expiresAt < Date.now()) {
+        throw new ApiError(400, "OTP has been expired")
+    }
+    
+    if(!await storedOTPVerificationInstance.isOTPValid(OTP)) {
+        throw new ApiError(400, "Invalid OTP");
+    }
+    
+    await storedOTPVerificationInstance.deleteOne();
+
+    user.password = newPassword;
+    await user.save({ validateBeforeSave: false });
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, {}, "Your password has been rest successfully")
+    )
+})
+
 const getAllBookedFacilities = asyncHandler( async (req, res) => {
     const userID = req.user?._id;
 
@@ -214,7 +344,12 @@ const getAllBookedFacilities = asyncHandler( async (req, res) => {
 export {
     registerUser,
     verifyOTPAndCreateUser,
+    resendOTP,
     loginUser,
     logoutUser,
+    changeCurrentPassword,
+    getCurrentUser,
+    sendOTPToResetPassword,
+    verifyOTPAndResetPassword,
     getAllBookedFacilities
 }

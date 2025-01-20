@@ -63,6 +63,27 @@ function sendOTPEmail(OTP, email) {
     sendEmail(subject, content, email);
 }
 
+function sendResetOTPEmail(OTP, email) {
+    const subject = "Your OTP to reset password"
+
+    const content = `
+    <html>
+    <body>
+        <p>Your OTP to reset password is <strong>${OTP}</strong></p>
+        <p>It is valid for 5 minutes</p>
+        <p>If you didn't request this, please ignore this email.</p>
+        <br>
+        <br>
+        <p>Best Regards,</p>
+        <p>Sports Council - IIT Jammu</p>
+    </body>
+    </html>
+    `
+
+    sendEmail(subject, content, email);
+}
+
 export {
-    sendOTPEmail
+    sendOTPEmail,
+    sendResetOTPEmail
 }
