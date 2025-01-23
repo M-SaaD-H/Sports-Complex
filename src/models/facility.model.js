@@ -7,10 +7,11 @@ const facilitySchema = new Schema(
             required: true,
             trim: true
         },
-        // quantity: {
-        //     type: Number,
-        //     required: true
-        // },
+        maxBookings: {
+            type: Number,
+            required: true,
+            default: 1
+        },
         availableSlots: [
             {
                 type: String,

@@ -36,11 +36,13 @@ app.get ("/",(req,res)=>{
 
 import userRouter from "./routes/user.routes.js"
 import bookingRouter from "./routes/booking.routes.js"
-import facilityRouter from "./routes/facilities.routes.js"
+import facilityRouter from "./routes/facility.routes.js"
+import adminRouter from "./routes/admin.routes.js"
 
 app.use('/api/user', userRouter);
 app.use('/api/booking', bookingRouter);
 app.use('/api/facilities', facilityRouter);
+app.use('/api/admin', adminRouter);
 
 
 export { app };

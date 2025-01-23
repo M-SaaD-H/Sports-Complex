@@ -31,12 +31,6 @@ const bookFacility = asyncHandler( async(req, res) => {
         throw new ApiError(404, "Facility not found");
     }
 
-    const existingBooking = await Booking.findOne({ facility ,slot });
-
-    if(existingBooking) {
-        throw new ApiError(400, "This facility has been already booked for this slot");
-    }
-
     if(!facility.availableSlots.includes(slot)) {
         throw new ApiError(400, "This facility can not be booked for this slot");
     }
@@ -47,6 +41,12 @@ const bookFacility = asyncHandler( async(req, res) => {
 
     if((slot === "06:00 - 07:30" || slot === "18:00 - 19:30") && user.role !== "faculty") {
         throw new ApiError(400, "This slot is reserved for Faculty and Staff");
+    }
+
+    const existingBooking = await Booking.find({ facility ,slot });
+
+    if(existingBooking.length >= facility.maxBookings) {
+        throw new ApiError(400, "This facility has been already booked for this slot");
     }
 
     // Extra Check - Booking in past
@@ -83,7 +83,7 @@ const bookFacility = asyncHandler( async(req, res) => {
     .json(
         new ApiResponse(
             200,
-            { booking },
+            booking,
             "Facility booked successfully"
         )
     )
