@@ -1,101 +1,85 @@
-.maindiv{
-    display:flex;
-    flex-direction: row;
-  margin-top: 7vw;
-  gap:3vw;
+.maindiv {
+    display: flex;
+    justify-content: space-between;
+    margin: 10em;
+    gap: 2em;
 }
-.nameId{
+
+.nameId {
     background-color:white ;
-    margin-left:6vw;
-    width: 20%;
-    height:250px;
-    margin-top: 10px;
+    width: 25%;
+    height: 18em;
     border-radius: 10px;
-    position:fixed;
-}
-.nameId img{
-    object-fit:cover;
-    width:150px;
-    height:100px;
-    margin-left: 5vw;
-    margin-top: 2vw; 
-}
-.nameId p{
-    margin-left: 120px;
+    position: sticky;
+    top: 10em;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.showstatus{
-   margin-top: 20px;
-   width: 70%;
-   background-color: white;
-   margin-bottom: 30px;
-   border-radius: 10px;
-   margin-left: 10px;
-
+.nameId .icon {
+    font-size: 4em;
+    margin: 0.5em 0;
 }
-.showcount{
 
-    display:flex;
-    justify-content: space-between;
-    background-color: #E3E6E6;
-    padding-right: 140px;
-    border-radius: 10px;
-    
+.showupdate {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
 }
-.montbook{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display:flex;
-    justify-content: space-between;
-    background-color: #E3E6E6;
-    padding-right: 140px;
-    margin-bottom:5px;
-    border-radius: 10px;
-   
 
-}
-.showbooking{
+.showstatus {
+    width: 50%;
     background-color: white;
-    width: 90%;
-    padding-left: 20px;
     border-radius: 10px;
-    padding-bottom: 10px;
+}
+
+.showcount {
+    display:flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.montbook {
+    display:flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.showbooking {
+    background-color: white;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 1em;
+    padding: 2em;
 }
 
-.showcards{
+.showbooking .heading {
+    letter-spacing: 2px;
+}
+
+.showcards {
+    height: 10em;
     display:flex;
-   justify-content: space-around;
-    height: 200px;
-    width: 95%;
-    padding-top: 5px;
+    gap: 1em;
+    justify-content: space-around;
     border-radius: 10px;
-    margin-top: 10px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
-    
 }
-.photo{
-    padding-left: 190px;
-    height: 190px;
+
+.photo {
     border-radius: 10px;
-    margin-left: -15px;
 }
-.showcards p{
-    margin-top: 50px;
-}
-.showupdate{
-    margin-left:440px;
-}
-.h1{
-    font-size: 90px;
-}
-.colordiv{
-    width:90%;
+
+.colordiv {
     background-color: white;
     border-radius: 10px;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    padding-left: 10px;
+    padding: 2em;
+}
+
+.colordiv .heading {
+    margin-bottom: 0.3em;
 }
