@@ -32,6 +32,10 @@ app.get ("/",(req,res)=>{
     res.render("index")
 })
 
+app.get("/dashbord",(req,res)=>{
+    return res.render("dashbord");
+})
+
 app.get('/login', (req, res) => {
     res.render('login', { formType: 'login' });
 })
