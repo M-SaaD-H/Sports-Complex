@@ -148,7 +148,40 @@ const cancelBooking = asyncHandler( async (req, res) => {
     )
 })
 
+const getBookingByID = asyncHandler( async (req, res) => {
+    const { bookingID } = req.params;
+    const userID = req.user._id;
+
+    if(!userID) {
+        throw new ApiError(401, "Unauthorized request");
+    }
+
+    const user = await User.findById(userID);
+
+    if(!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const booking = await Booking.findById(bookingID);
+
+    if(!booking) {
+        throw new ApiError(404, "Booking not found");
+    }
+
+    // Only Admins and the User who have booked the facility will be able to get the booking
+    if(!user.bookings.includes(booking._id) && user.role !== 'admin') {
+        throw new ApiError(401, "You have not booked this facility");
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, booking, "Booking fetched successfully")
+    )
+})
+
 export {
     bookFacility,
-    cancelBooking
+    cancelBooking,
+    getBookingByID
 }

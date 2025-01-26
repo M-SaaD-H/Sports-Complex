@@ -328,7 +328,7 @@ const getAllBookedFacilities = asyncHandler( async (req, res) => {
         throw new ApiError(404, "Unauthorized request");
     }
 
-    const user = await User.findById(userID);
+    const user = await User.findById(userID).populate("bookings");
 
     if(!user) {
         throw new ApiError(404, "User not found");
