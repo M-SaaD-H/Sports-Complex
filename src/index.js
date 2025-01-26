@@ -13,6 +13,11 @@ connectDB()
         throw error;
     });
 
+
+    app.get("/dashbord",(req,res)=>{
+        return res.render("dashbord");
+    })
+
     app.listen(process.env.PORT, () => {
         console.log('App is listening on PORT :', process.env.PORT);
     });
