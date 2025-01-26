@@ -22,7 +22,7 @@ app.use(cookieParser());
 // To implement ejs
 app.set("view engine","ejs");
 
-// Routes
+// Frontend Routes
 const __filename = new URL('', import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
 
@@ -30,6 +30,14 @@ app.use("/views", express.static("views"));
 
 app.get ("/",(req,res)=>{
     res.render("index")
+})
+
+app.get('/login', (req, res) => {
+    res.render('login', { formType: 'login' });
+})
+
+app.get('/sign-up', (req, res) => {
+    res.render('login', { formType: 'signup' });
 })
 
 // API Routes
