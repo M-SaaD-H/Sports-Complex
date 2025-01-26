@@ -16,6 +16,7 @@
     justify-content: center;
     font-size: 6vw;
     font-weight: 600;
+    margin-top: 2vw;
 }
 
 .welcome {
@@ -33,4 +34,29 @@
     font-size: 3vw;
     font-weight: 600;
     margin-bottom: 1vw;
+}
+
+.order{
+    font-size: 1.5vw;
+    font-weight: 600;
+    margin-bottom: 1vw;
+}
+.uorder{
+    font-size: 1.15vw;
+    font-weight: 550;
+    margin-bottom: 0.5vw;
+}
+ul{
+    margin-bottom: 0.7vw;
+}
+
+.la{
+    position: relative;
+    left: 3vw;
+    margin-bottom: 0.5vw;
+
+}
+.mes_win{
+    display: flex;
+    
 }

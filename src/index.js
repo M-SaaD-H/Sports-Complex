@@ -13,6 +13,12 @@ connectDB()
         throw error;
     });
 
+
+    app.get("/rules",(req,res)=>
+    {
+        return res.render("Rules");
+    })
+
     app.listen(process.env.PORT, () => {
         console.log('App is listening on PORT :', process.env.PORT);
     });
