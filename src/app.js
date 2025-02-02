@@ -57,4 +57,10 @@ app.use('/api/facilities', facilityRouter);
 app.use('/api/admin', adminRouter);
 
 
+// To handle ApiErrors
+import { errorHandler } from "./middlewares/error.middleware.js";
+
+app.use(errorHandler);
+
+
 export { app };
