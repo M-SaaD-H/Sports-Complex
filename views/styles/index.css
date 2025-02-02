@@ -1,5 +1,5 @@
 .hero {
-    margin: 6.5vw 1vw 5vw 1vw;
+    margin: 7em 1em 1em 1em;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -14,23 +14,24 @@
     font-family: 'Bebas Neue', serif;
     display: flex;
     justify-content: center;
-    font-size: 6vw;
+    font-size: 6em;
     font-weight: 600;
+    margin: 0.5em 0;
 }
 
 .welcome {
-    margin: 2vw auto;
+    margin: 0 auto;
     position: relative;
-    width: 85%;
+    width: 80%;
     background-color: #f7f7f7;
-    padding: 2vw;
+    padding: 2em;
     border-radius: 10px;
 }
 
 .word {
     display: flex;
     justify-content: center;
-    font-size: 3vw;
-    font-weight: 600;
-    margin-bottom: 1vw;
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 1em;
 }

@@ -10,8 +10,6 @@
     width: 25%;
     height: 18em;
     border-radius: 10px;
-    position: sticky;
-    top: 10em;
     padding: 2em;
     display: flex;
     flex-direction: column;
