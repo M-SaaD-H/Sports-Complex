@@ -28,21 +28,9 @@ const __dirname = path.dirname(__filename);
 
 app.use("/views", express.static("views"));
 
-app.get ("/",(req,res)=>{
-    res.render("index")
-})
+import frontendRouter from "./routes/frontend.routes.js";
 
-app.get("/dashbord",(req,res)=>{
-    return res.render("dashbord");
-})
-
-app.get('/login', (req, res) => {
-    res.render('login', { formType: 'login' });
-})
-
-app.get('/sign-up', (req, res) => {
-    res.render('login', { formType: 'signup' });
-})
+app.use(frontendRouter);
 
 // API Routes
 

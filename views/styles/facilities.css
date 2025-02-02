@@ -1,0 +1,65 @@
+.facilities {
+	width: 50em;
+	margin: 7em auto;
+}
+
+.faci {
+	width: 100%;
+	height: 12em;
+	border-radius: 10px;
+	background-color: white;
+	padding: 1em;
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+}
+
+.faci .dets {
+	display: flex;
+	justify-content: center;
+	gap: 1em;
+}
+
+.faci .image {
+	background-color: rgb(28, 28, 28);
+	width: 12em;
+	height: 10em; /* 12em - (1 + 1)em -> padding */
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.faci form {
+	display: flex;
+	flex-direction: column;
+	margin-right: 1.5em;
+}
+
+form select {
+	border: none;
+	outline: none;
+	background-color: rgb(231, 231, 231);
+	padding: 0.5rem;
+	border-radius: 10px;
+}
+
+form select option {
+	margin: 0.5rem;
+	padding: 0.5rem;
+}
+
+form select option:hover {
+	background-color: red;
+}
+
+.book-btn {
+	height: 2.25rem;
+	padding: 0.5rem 1.5rem;
+	margin: 1rem 0;
+	background-color: #1D4ED8;
+	color: white;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+}
