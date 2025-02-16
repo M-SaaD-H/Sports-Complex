@@ -1,0 +1,25 @@
+.cards{
+    display:grid;
+   grid-template-columns: repeat(3,1fr);
+    gap:5em;
+    margin: 10em 20em 10em 15em;
+
+}
+.image{
+    background-color: black;
+  width:300px;
+  height: 300px;
+   
+}
+#middle{
+   text-align: center;
+}
+
+h4{
+    margin-top: 10px;
+}
+.eventCard{
+    background-color: white;
+    border-radius: 10px;
+    padding:1em;
+}

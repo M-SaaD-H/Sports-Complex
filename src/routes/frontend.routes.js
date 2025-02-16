@@ -21,6 +21,9 @@ router.get('/sign-up', (req, res) => {
 router.get('/facilities', (req, res) => {
     res.render('facilities');
 });
+router.get("/pastEvent",(req,res)=>{
+    return res.render("pastevents");
+})
 
 
 export default router;
